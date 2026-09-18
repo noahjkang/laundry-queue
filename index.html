@@ -67,32 +67,48 @@
             background-color: transparent;
             color: black;
         }
+        /* Meme Overlay */
+        #meme-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: black;
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 3s ease-out;
+        }
+        #meme-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>laundry queue</h1>
-        <p>claim yo spot 🥀</p>
+        <h1>Laundry Queue</h1>
+        <p>Claim a machine:</p>
 
         <div class="machine">
-            <span>washing machine 1</span>
+            <span>Washing Machine 1</span>
             <button onclick="showPaywall()">Claim</button>
         </div>
         <div class="machine">
-            <span>washing machine 2</span>
+            <span>Washing Machine 2</span>
             <button onclick="showPaywall()">Claim</button>
         </div>
         
         <div class="machine">
-            <span>dryer 1</span>
+            <span>Dryer 1</span>
             <button onclick="showPaywall()">Claim</button>
         </div>
         <div class="machine">
-            <span>dryer 2</span>
+            <span>Dryer 2</span>
             <button onclick="showPaywall()">Claim</button>
         </div>
         <div class="machine">
-            <span>dryer 3</span>
+            <span>Dryer 3</span>
             <button onclick="showPaywall()">Claim</button>
         </div>
     </div>
@@ -100,21 +116,26 @@
     <div id="paywall">
         <div class="paywall-content">
             <h2>Premium Access Required</h2>
+            <p>To use the laundry queue, you must subscribe.</p>
             
             <div class="plan">
                 <h3>Monthly Plan</h3>
-                <p>$199/month</p>
+                <p>$199 / month</p>
             </div>
             
             <div class="plan">
                 <h3>Annual Plan</h3>
-                <p>$150/month (billed annually)</p>
+                <p>$150 / month (billed annually)</p>
             </div>
 
             <button onclick="doNothing()">Subscribe & Claim</button>
             <br>
             <button class="cancel-btn" onclick="hidePaywall()">Cancel</button>
         </div>
+    </div>
+
+    <div id="meme-overlay">
+        <img src="https://img.huffingtonpost.com/asset/618c7c452100002f826fef95.jpeg?ops=scalefit_500_noupscale" alt="Meme">
     </div>
 
     <script>
@@ -127,7 +148,21 @@
         }
 
         function doNothing() {
-            // Does nothing!
+            const overlay = document.getElementById('meme-overlay');
+            // Show the image at full opacity
+            overlay.style.display = 'flex';
+            
+            // Force a reflow so the transition works
+            void overlay.offsetWidth;
+            
+            // Trigger the fade out
+            overlay.style.opacity = '0';
+
+            // Hide the overlay completely after the 3-second transition
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                overlay.style.opacity = '1'; // Reset for next time
+            }, 3000);
         }
     </script>
 </body>
